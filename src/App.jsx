@@ -3,6 +3,8 @@ import Navbar from './components/Navbar'
 import Exercises from './pages/Exercises'
 import LogWorkout from './pages/LogWorkout'
 import WorkoutHistory from './pages/WorkoutHistory'
+import Dashboard from './pages/Dashboard'
+
 
 const Placeholder = ({ title }) => (
   <div className="flex justify-center items-center h-[60vh]">
@@ -16,10 +18,9 @@ function App() {
       <Navbar />
       <main className="container mx-auto px-4 py-6">
         <Routes>
-          <Route path="/" element={<Placeholder title="Dashboard" />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/log" element={<LogWorkout />} />
           <Route path="/history" element={<WorkoutHistory />} />
-          <Route path="/progress" element={<Placeholder title="Progress" />} />
           <Route path="/exercises" element={<Exercises />} />
         </Routes>
       </main>
