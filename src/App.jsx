@@ -4,6 +4,7 @@ import Exercises from './pages/Exercises'
 import LogWorkout from './pages/LogWorkout'
 import WorkoutHistory from './pages/WorkoutHistory'
 import Dashboard from './pages/Dashboard'
+import Home from './pages/Home'
 
 
 const Placeholder = ({ title }) => (
@@ -18,7 +19,8 @@ function App() {
       <Navbar />
       <main className="container mx-auto px-4 py-6">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/log" element={<LogWorkout />} />
           <Route path="/history" element={<WorkoutHistory />} />
           <Route path="/exercises" element={<Exercises />} />
