@@ -6,13 +6,18 @@ export const useWorkoutStore = create(
     (set) => ({
 
       exercises: [],
-      logs: [], // exercises that user engaged with, with date and time
+      logs: [], 
 
       setExercises: (data) => set({ exercises: data }),
       
       addLog: (log) => set((state) => ({ 
         logs: [...state.logs, { ...log, id: Date.now(), date: new Date().toISOString() }] 
       })),
+
+      deleteLog: (id) => set((state) => ({
+        logs: state.logs.filter((log) => log.id !== id)
+      })),
+
     }),
 
     {
