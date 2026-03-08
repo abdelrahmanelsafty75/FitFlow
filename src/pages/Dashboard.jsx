@@ -15,7 +15,7 @@ export default function Dashboard() {
   const totalWorkouts = logs.length
   
   const totalVolume = logs.reduce((total, log) => {
-    return total * (log.sets * log.reps * log.weight)
+    return total + (log.sets * log.reps * log.weight)
   }, 0)
 
 
