@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Exercises from './pages/Exercises'
+import LogWorkout from './pages/LogWorkout'
+
 const Placeholder = ({ title }) => (
   <div className="flex justify-center items-center h-[60vh]">
     <h1 className="text-3xl font-bold text-primary">{title} Page Coming Soon</h1>
@@ -14,7 +16,7 @@ function App() {
       <main className="container mx-auto px-4 py-6">
         <Routes>
           <Route path="/" element={<Placeholder title="Dashboard" />} />
-          <Route path="/log" element={<Placeholder title="Log Workout" />} />
+          <Route path="/log" element={<LogWorkout />} />
           <Route path="/history" element={<Placeholder title="History" />} />
           <Route path="/progress" element={<Placeholder title="Progress" />} />
           <Route path="/exercises" element={<Exercises />} />
