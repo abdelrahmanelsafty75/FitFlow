@@ -4,7 +4,6 @@ import { Activity, Dumbbell, History } from 'lucide-react';
 const Home = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-      {/* Hero Section */}
       <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
                 Track<br />
                 Progress,<br />
@@ -16,15 +15,14 @@ const Home = () => {
       </p>
       
       <div className="flex justify-center gap-4 mb-20">
-        <Link to="/exercises" className="bg-primary text-background px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all">
-          Start Workout 
+        <Link to="/Log" className="bg-primary text-background px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all">
+          Get Started 
         </Link>
         <Link to="/history" className="bg-surface text-white border border-white/10 px-8 py-4 rounded-full font-bold text-lg hover:border-primary transition-colors">
           View History
         </Link>
       </div>
 
-      {/* Features Grid */}
       <div className="grid md:grid-cols-3 gap-8 text-left">
         <div className="bg-surface p-8 rounded-3xl border border-white/5 hover:border-primary/30 transition-colors">
           <Dumbbell className="text-primary mb-4" size={40} />
