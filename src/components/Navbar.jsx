@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { Dumbbell, History, TrendingUp, Search, Home } from 'lucide-react'
 
 const navItems = [
-  { path: '/', label: 'Dashboard', icon: Home },
+  { path: '/dashboard', label: 'Dashboard', icon: Home },
   { path: '/log', label: 'Log Workout', icon: Dumbbell },
   { path: '/history', label: 'History', icon: History },
   { path: '/exercises', label: 'Exercises', icon: Search },
