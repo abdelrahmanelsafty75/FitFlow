@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { wgerApi } from '../services/api'
-import ExerciseCard from '../components/ExerciseCard'
 import { Search, Loader } from 'lucide-react'
+import ExerciseCard from '../components/ExerciseCard'
 
 export default function Exercises() {
   const [exercises, setExercises] = useState([])
@@ -9,28 +9,44 @@ export default function Exercises() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const loadExercises = async (query = '') => {
+  const loadInitialExercises = async () => {
     setLoading(true)
     setError(null)
     try {
-      const data = query 
-        ? await wgerApi.searchExercises(query)
-        : await wgerApi.getExercises()
+      const data = await wgerApi.getExercises()
       setExercises(data)
     } catch (err) {
-      setError("Failed to fetch exercises. Please check your internet connection.")
+      console.error(err)
+      setError("Failed to fetch exercises. Check your connection.")
     } finally {
       setLoading(false)
     }
   }
 
-  useEffect(() => {
-    loadExercises()
+  useEffect(() => { 
+    loadInitialExercises() 
   }, [])
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault()
-    loadExercises(searchQuery)
+    
+    if (!searchQuery.trim()) {
+      loadInitialExercises()
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const results = await wgerApi.searchExercises(searchQuery)
+      setExercises(results)
+    } catch (err) {
+      console.error(err)
+      setError("Search failed. Please try again.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -40,25 +56,25 @@ export default function Exercises() {
         <p className="text-gray-400">Search and discover exercises from WGER database.</p>
       </div>
 
-
-
       <form onSubmit={handleSearch} className="flex gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
-            placeholder="Search exercises by name..."
+            placeholder="Search exercises by name (e.g., Squat)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#181818] border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:border-[#d3ff00] transition-colors"
+            className="w-full bg-surface border border-white/10 rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
           />
         </div>
-        <button type="submit" className="bg-primary text-black font-bold px-6 py-3 rounded-lg hover:bg-white transition-colors">
+        <button 
+          type="submit" 
+          disabled={loading}
+          className="bg-primary text-background font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+        >
           Search
         </button>
       </form>
-
-
 
       {loading && (
         <div className="flex justify-center items-center py-20">
@@ -73,14 +89,14 @@ export default function Exercises() {
       )}
 
       {!loading && !error && exercises.length === 0 && (
-        <div className="text-center text-gray-400 py-10">No exercises found.</div>
+        <div className="text-center text-gray-400 py-10">
+          No exercises found matching "{searchQuery}". Try a different exercise.
+        </div>
       )}
 
       {!loading && !error && exercises.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id} exercise={exercise} />
-          ))}
+          {exercises.map((ex) => <ExerciseCard key={ex.id} exercise={ex} />)}
         </div>
       )}
     </div>
